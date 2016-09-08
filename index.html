@@ -1,0 +1,178 @@
+<!DOCTYPE hmtl>
+<head>
+    <title>Architext Examples</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="architext.js"></script>
+    <style>
+        html, body, #wrapper {
+            width: 100%;
+            font-family: Helvetica, Arial, sans-serif;
+        }
+        #content {
+            background-color: #fff;
+            border-radius: 3px;
+            margin: 0 auto;
+            width: 940px;
+        }
+        #content > h3 {
+            background-color: #f5f5f5;
+            border-radius: 3px 3px 0 0;
+            margin: 0;
+            padding: 9px 10px 10px;
+            font-wieght: 700;
+            font-size: 14px;
+            border: 1px solid #d8d8d8;
+            border-bottom: 0;
+        }
+        #content article {
+            margin: 0;
+            border-radius: 0 0 3px 3px;
+            padding: 45px;
+            border: 1px solid #ddd;  
+        }
+        article > .desc, article > pre {
+            background-color: #f7f7f7;
+            padding: 16px;
+        }
+        article > pre {
+            font: 12px Consolas, "Liberation Mono", Menlo, Courier, monospace;
+        }
+        .eg div {
+            background-color: #f0f0f0;
+            padding: 15px;
+        }
+        .eg ul {
+            background-color: #f0f0f0;
+            padding: 15px 25px;
+        }
+        .eg li + li {
+            margin-top: 10px;
+        }
+        /* example CSS */
+        .intro {
+            font-style: italic;
+        }
+        .item-01 {
+            font-weight: 900;
+        }
+        .item-02 {
+            font-weight: 600;
+        }
+        .item-03 {
+            font-weight: 300;
+        }
+        .eg td {
+            height: 50px;
+            width: 50px;
+            border: 1px solid #ddd;
+            border-collapse: collapse;
+        }
+        :unresolved:after {
+            padding: 10px;
+            content: "Your browser does not support custom elements.";
+            width: 90%;
+        }
+        custom-element {
+            background-color: #888;
+            padding: 10px;
+            border-radius: 15px;   
+            margin-bottom: 20px;         
+        }
+
+    </style>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="content">
+            <h3>Architext Live Examples</h3>
+            <article>
+                <h3>Live Example 1</h3>
+                <div class="desc">Basic Usage</div>
+                <pre>architext("div p[text=This is a paragraph containing some text]");</pre>
+                <div class='eg'></div>
+                <h3>Live Example 2</h3>
+                <div class="desc">To add an ID or a class.</div>
+                <pre>architext('div#foo p.intro[text=This is some text inside .intro]');</pre>
+                <div class='eg'></div>
+                <h3>Live Example 3</h3>
+                <div class="desc">Add attributes with the square brackets. The " or ' can be used or omitted.</div>
+                <pre>architext('div#foo a.bar[text="A link to github"][href=http://www.github.com/quozzo]');</pre>
+                <div class='eg'></div>
+                <h3>Live Example 4</h3>
+                <div class="desc">Omitting the element when assigning an ID or class will assume you want a div element.</div>
+                <pre>architext('#foo .lorem.ipsum[text=Default div elements here]');</pre>
+                <div class='eg'></div>                
+                <h3>Live Example 5</h3>
+                <div class="desc">Use the multiplyer to create multiple elements.</div>
+                <pre>architext('ul li*3[text=List]');</pre>
+                <div class='eg'></div>
+                <h3>Live Example 6</h3>
+                <div class="desc">Use the $ symbol to include the iterator number.</div>
+                <pre>architext('ul li*3[text="List $"]');</pre>
+                <div class='eg'></div>
+                <h3>Live Example 7</h3>
+                <div class="desc">The $ symbol can be used anywhere in the current element. Multiple $ symbols add extra padding.</div>
+                <pre>architext('ul li*3.item-$$[text=List $]');</pre>
+                <div class='eg'></div>
+                <em>Note: The iterator number cannot be used on the elements children</em>
+                <h3>Live Example 8</h3>
+                <div class="desc">The multiplier can be used on any element in the chain.</div>
+                <pre>architext('table tr*3 td*5');</pre>
+                <div class='eg'></div>
+                <h3>Live Example 9</h3>
+                <div class="desc">Create siblings using either the + or ~ symbol.</div>
+                <pre>architext('ul li*2 img[src=someimage.jpg][height=100] + br + a[href='somelargerimage.jpg][text=View larger image]');</pre>
+                <div class='eg'></div>
+                <h3>Live Example 10</h3>
+                <div class="desc">architext also supports custom attributes and elements.</div>
+                <pre>architext('custom-element[data-foo=bar]');</pre>
+                <div class='eg'></div>
+                <h3>Live Example 11</h3>
+                <div class="desc">If jQuery is detected then architext can be used as an extension of jQuery.</div>
+                <pre>$.architext("div p[text=This is a paragraph containing some text]");</pre>
+                <div class='eg'></div>
+                <h3>Live Example 12</h3>
+                <div class="desc">The HTML will be wrapped in jQuery allowing the use of all it's methods.</div>
+                <pre>$.architext("div p[text=This is a paragraph containg some text]").appendTo('.eg:eq(11)');</pre>
+                <div class='eg'></div>
+                <h3>Live Example 13</h3>
+                <div class="desc">architext can also be used as a plugin of jQuery.</div>
+                <pre>$('eq:eq(12)').architext('ul li*2 img[src=someimage.jpg] + a[text=View larger image]').find('img').after("&lt;br&gt;");</pre>
+                <div class='eg'></div>
+            </article>
+        </div>
+    </div>
+    <script>
+        var doc = document, eg = doc.querySelectorAll(".eg"), els, $els;
+        els = architext("div p[text=This is a paragraph containing some text]");
+        eg[0].appendChild(els[0]);
+        els = architext('div#foo p.intro[text=This is some text inside .intro]');
+        eg[1].appendChild(els[0]);
+        els = architext('div#foo a.bar[text="A link to github"][href=http://www.github.com/quozzo]');
+        eg[2].appendChild(els[0]);
+        els = architext('#foo .lorem.ipsum[text=Default div elements here]');
+        eg[3].appendChild(els[0]);
+        els = architext('ul li*3[text=List]');
+        eg[4].appendChild(els[0]);
+        els = architext('ul li*3[text="List $"]');
+        eg[5].appendChild(els[0]);
+        els = architext('ul li*3.item-$$[text=List $]');
+        eg[6].appendChild(els[0]);
+        els = architext('table tr*3 td*5');
+        eg[7].appendChild(els[0]);
+        els = architext('ul li*2 img[src="https://services.github.com/kit/images/github-icon.jpg"][height=100px] + br + a[text=View Full Image][href=https://services.github.com/kit/images/github-icon.jpg]');
+        eg[8].appendChild(els[0]);
+        els = architext('custom-element[data-foo=bar]');
+        eg[9].appendChild(els[0]);
+        $els = $.architext("div p[text=This is a paragraph containing some text]");
+        $('.eg').filter(':eq(10)').html($els);
+        $.architext("div p[text=This is a paragraph containg some text]").appendTo('.eg:eq(11)');
+        $('.eg:eq(12)').architext('ul li*2 img[src="https://services.github.com/kit/images/github-icon.jpg"][height=100px] + a[text=View Full Image][href=https://services.github.com/kit/images/github-icon.jpg]').find('img').after("<br>");;
+        
+        var cep = Object.create(HTMLElement.prototype);
+        cep.createdCallback = function() {
+            this.innerHTML = "Custom Element with custom data: "+this.dataset.foo;
+        };
+        var ce = document.registerElement('custom-element', {prototype: cep});
+    </script>
+</body>
