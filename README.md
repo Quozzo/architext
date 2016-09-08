@@ -2,6 +2,8 @@
 
 ***architext*** is used to build HTML with CSS selectors. There are no dependancies, libraries or frameworks used, it's a completely standalone function. The returned value is a collection of DOM nodes.
 
+[View Live Demo](https://quozzo.github.io/architext/)
+
 Turn this
 ```js
 architext('div p');
@@ -143,7 +145,7 @@ $.architext("div p img");
 ```
 The HTML will be wrapped in jQuery allowing the use of all it's methods.
 ```js
-$.architext("div p img").replace("#foo");
+$.architext("div p img").appendTo("#foo");
 ```
 architext can also be used as a plugin of jQuery.
 ```js
