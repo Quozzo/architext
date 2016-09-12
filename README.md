@@ -127,6 +127,60 @@ returns
 </ul>
 ```
 
+###Nest multiple branches with groups.
+```js
+architext("div (ul li*3[text=List $]) + (div p[text=Paragraph] img) + div a[text=Google][href=http://google.com]");
+```
+returns
+```html
+<div>
+    <ul>
+        <li>List 1</li>
+        <li>List 2</li>
+        <li>List 3</li>
+    </ul>
+    <div>
+        <p>
+            Paragraph
+            <img>
+        </p>
+    </div>
+    <div>
+        <a href='http://google.com'>Google</a>
+    </div>
+</div>
+```
+No limit to the nesting.
+```js
+architext("div (ul li*3[text=List $]) + (div*3 (h3[text=Heading] + a[href=http://google.com] img[src=https://services.github.com/kit/images/github-icon.jpg][height=50px] + span[text=I'm a link]) + p (i[text=some italic] b[text= and bold text.]) span[text= something else] ) + footer div");
+```
+returns
+```html
+<div>
+    <ul>
+        <li>List 1</li>
+        <li>List 2</li>
+        <li>List 3</li>
+    </ul>
+    <div>
+        <h3>Heading</h3>
+        <a href='http://google.com'>
+            <img src='https://services.github.com/kit/images/github-icon.jpg' height='50px' />
+            <span>I'm a Link</span>
+        </a>
+        <p>
+            <i>
+                Some Italic
+                <b> and bold text.</b>
+            </i>
+            <span>Something else</span>
+        </p>
+    </div>
+    <footer>
+        <div></div>
+    </footer>
+```
+
 ###Custom element and attributes
 
 architext also supports custom attributes and elements
