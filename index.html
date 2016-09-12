@@ -4,15 +4,15 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script src="architext.js"></script>
     <style>
-        html, body, #wrapper {
-            width: 100%;
-            font-family: Helvetica, Arial, sans-serif;
+        html, body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";;
+            color: #333;
         }
         #content {
             background-color: #fff;
             border-radius: 3px;
             margin: 0 auto;
-            width: 940px;
+            width: 980px;
         }
         #content > h3 {
             background-color: #f5f5f5;
@@ -30,19 +30,31 @@
             padding: 45px;
             border: 1px solid #ddd;  
         }
-        article > .desc, article > pre {
-            background-color: #f7f7f7;
-            padding: 16px;
+        #content > article > h3 {
+            margin-top: 24px;
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+        article > .desc {
+            padding: 0;
+            margin-top: 0;
+            margin-bottom: 16px;
+            font-size: 16px;
         }
         article > pre {
-            font: 12px Consolas, "Liberation Mono", Menlo, Courier, monospace;
+            font: 14px Consolas, "Liberation Mono", Menlo, Courier, monospace;
+            overflow: auto;
+            background-color: #f7f7f7;
+            padding: 16px;
+            margin-bottom: 16px;
         }
-        .eg div {
-            background-color: #f0f0f0;
+        .eg > div {
+            background-color: #f7f7f7;
             padding: 15px;
+            margin-bottom: 16px;
         }
         .eg ul {
-            background-color: #f0f0f0;
+            background-color: #f7f7f7;
             padding: 15px 25px;
         }
         .eg li + li {
@@ -52,13 +64,13 @@
         .intro {
             font-style: italic;
         }
-        .item-01 {
+        .item-1 {
             font-weight: 900;
         }
-        .item-02 {
+        .item-2 {
             font-weight: 600;
         }
-        .item-03 {
+        .item-3 {
             font-weight: 300;
         }
         .eg td {
@@ -73,7 +85,7 @@
             width: 90%;
         }
         custom-element {
-            background-color: #888;
+            background-color: #e0e0e0;
             padding: 10px;
             border-radius: 15px;   
             margin-bottom: 20px;         
@@ -86,58 +98,63 @@
         <div id="content">
             <h3>Architext Live Examples</h3>
             <article>
-                <h3>Live Example 1</h3>
+                <h3>Architext</h3>
                 <div class="desc">Basic Usage</div>
                 <pre>architext("div p[text=This is a paragraph containing some text]");</pre>
                 <div class='eg'></div>
-                <h3>Live Example 2</h3>
+
+                <h3>Add IDs, classes and attributes.</h3>
                 <div class="desc">To add an ID or a class.</div>
                 <pre>architext('div#foo p.intro[text=This is some text inside .intro]');</pre>
-                <div class='eg'></div>
-                <h3>Live Example 3</h3>
+                <div class='eg'></div>                
                 <div class="desc">Add attributes with the square brackets. The " or ' can be used or omitted.</div>
                 <pre>architext('div#foo a.bar[text="A link to github"][href=http://www.github.com/quozzo]');</pre>
-                <div class='eg'></div>
-                <h3>Live Example 4</h3>
+                <div class='eg'></div>                
                 <div class="desc">Omitting the element when assigning an ID or class will assume you want a div element.</div>
                 <pre>architext('#foo .lorem.ipsum[text=Default div elements here]');</pre>
-                <div class='eg'></div>                
-                <h3>Live Example 5</h3>
-                <div class="desc">Use the multiplyer to create multiple elements.</div>
-                <pre>architext('ul li*3[text=List]');</pre>
                 <div class='eg'></div>
-                <h3>Live Example 6</h3>
+                                
+                <h3>Creating multiple elements</h3>
+                <div class="desc">Use the multiplier to create multiple elements.</div>
+                <pre>architext('ul li*3[text=List]');</pre>
+                <div class='eg'></div>                
                 <div class="desc">Use the $ symbol to include the iterator number.</div>
                 <pre>architext('ul li*3[text="List $"]');</pre>
-                <div class='eg'></div>
-                <h3>Live Example 7</h3>
+                <div class='eg'></div>                
                 <div class="desc">The $ symbol can be used anywhere in the current element. Multiple $ symbols add extra padding.</div>
-                <pre>architext('ul li*3.item-$$[text=List $]');</pre>
+                <pre>architext('ul li*3.item-$[text=List $$]');</pre>
                 <div class='eg'></div>
-                <em>Note: The iterator number cannot be used on the elements children</em>
-                <h3>Live Example 8</h3>
+                <em>Note: The iterator number cannot be used on the elements children</em>                
                 <div class="desc">The multiplier can be used on any element in the chain.</div>
                 <pre>architext('table tr*3 td*5');</pre>
                 <div class='eg'></div>
-                <h3>Live Example 9</h3>
+
+                <h3>Create Siblings</h3>
                 <div class="desc">Create siblings using either the + or ~ symbol.</div>
                 <pre>architext('ul li*2 img[src=someimage.jpg][height=100] + br + a[href='somelargerimage.jpg][text=View larger image]');</pre>
                 <div class='eg'></div>
-                <h3>Live Example 10</h3>
+
+                <h3>Use groups to build nesting HTML</h3>
+                <div class="desc">Nest multiple groups</div>
+                <pre>architext("div (ul li*3[text=List $]) + (div p[text=Paragraph] img) + div a[text=google][href=http://google.com]");</pre>
+                <div class='eg'></div>                
+                <div class="desc">Unlimited nesting is possible, allowing you to create a whole document in one line!</div>
+                <pre>architext("div (ul li.*3[text=List $]) + (div*3 (h3[text=Paragraph] + a[href=http://google.com] img[src=https://services.github.com/kit/images/github-icon.jpg][height=50px] + span[text=I'm a link]) + p (i[text=some italic] b[text= and bold text.]) span[text= something else] ) + footer div");</pre>
+                <div class='eg'></div>
+
+                <h3>Custom element and attributes</h3>
                 <div class="desc">architext also supports custom attributes and elements.</div>
                 <pre>architext('custom-element[data-foo=bar]');</pre>
                 <div class='eg'></div>
-                <h3>Live Example 11</h3>
+                <h3>jQuery support</h3>
                 <div class="desc">If jQuery is detected then architext can be used as an extension of jQuery.</div>
                 <pre>$.architext("div p[text=This is a paragraph containing some text]");</pre>
-                <div class='eg'></div>
-                <h3>Live Example 12</h3>
+                <div class='eg'></div>                
                 <div class="desc">The HTML will be wrapped in jQuery allowing the use of all it's methods.</div>
-                <pre>$.architext("div p[text=This is a paragraph containg some text]").appendTo('.eg:eq(11)');</pre>
-                <div class='eg'></div>
-                <h3>Live Example 13</h3>
+                <pre>$.architext("div p[text=This is a paragraph containg some text]").appendTo('.eg:eq(13)');</pre>
+                <div class='eg'></div>                
                 <div class="desc">architext can also be used as a plugin of jQuery.</div>
-                <pre>$('eq:eq(12)').architext('ul li*2 img[src=someimage.jpg] + a[text=View larger image]').find('img').after("&lt;br&gt;");</pre>
+                <pre>$('.eg:eq(14)').architext('ul li*2 img[src=someimage.jpg] + a[text=View larger image]').find('img').after("&lt;br&gt;");</pre>
                 <div class='eg'></div>
             </article>
         </div>
@@ -156,23 +173,34 @@
         eg[4].appendChild(els[0]);
         els = architext('ul li*3[text="List $"]');
         eg[5].appendChild(els[0]);
-        els = architext('ul li*3.item-$$[text=List $]');
+        els = architext('ul li*3.item-$[text=List $$]');
         eg[6].appendChild(els[0]);
         els = architext('table tr*3 td*5');
         eg[7].appendChild(els[0]);
         els = architext('ul li*2 img[src="https://services.github.com/kit/images/github-icon.jpg"][height=100px] + br + a[text=View Full Image][href=https://services.github.com/kit/images/github-icon.jpg]');
         eg[8].appendChild(els[0]);
-        els = architext('custom-element[data-foo=bar]');
+        els = architext("div (ul li*3[text=List $]) + (div p[text=Paragraph] img[src=https://services.github.com/kit/images/github-icon.jpg][height=50px]) + div a[text=google][href=http://google.com]");
         eg[9].appendChild(els[0]);
+        els = architext("div (ul li*3[text=List $]) + (div*3 (h3[text=Heading] + a[href=http://google.com] img[src=https://services.github.com/kit/images/github-icon.jpg][height=50px] + br + span[text=I'm a link]) + p (i[text=some italic] b[text= and bold text.]) span[text= something else] ) + footer div");
+        eg[10].appendChild(els[0]);
+        els = architext('custom-element[data-foo=bar]');
+        eg[11].appendChild(els[0]);
         $els = $.architext("div p[text=This is a paragraph containing some text]");
-        $('.eg').filter(':eq(10)').html($els);
-        $.architext("div p[text=This is a paragraph containg some text]").appendTo('.eg:eq(11)');
-        $('.eg:eq(12)').architext('ul li*2 img[src="https://services.github.com/kit/images/github-icon.jpg"][height=100px] + a[text=View Full Image][href=https://services.github.com/kit/images/github-icon.jpg]').find('img').after("<br>");;
-        
+        $('.eg').filter(':eq(12)').html($els);
+        $.architext("div p[text=This is a paragraph containg some text]").appendTo('.eg:eq(13)');
+        $('.eg:eq(14)').architext('ul li*2 img[src="https://services.github.com/kit/images/github-icon.jpg"][height=100px] + a[text=View Full Image][href=https://services.github.com/kit/images/github-icon.jpg]').find('img').after("<br>");;
+ 
         var cep = Object.create(HTMLElement.prototype);
         cep.createdCallback = function() {
             this.innerHTML = "Custom Element with custom data: "+this.dataset.foo;
         };
-        var ce = document.registerElement('custom-element', {prototype: cep});
+        var ce = document.registerElement('custom-element', { prototype: cep });
+        
+    </script>
+    <script>
+        function tester(selector) {
+            var els = architext(selector);
+            document.body.appendChild(els[0]);
+        }
     </script>
 </body>
